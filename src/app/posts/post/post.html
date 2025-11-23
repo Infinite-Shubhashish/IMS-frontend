@@ -1,0 +1,35 @@
+<h2 class="header">All Posts</h2>
+
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (post of posts; track post.id) {
+        <tr (click)="openDetails(post.id)" class="clickable-row">
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.postStatus }}</td>
+            <td>{{ post.createdByUsername}}
+            <td>{{ post.createdDate | date:'short' }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination-container">
+    <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+
+    <span class="page-info">
+        Page {{ page + 1 }} of {{ totalPages }}
+    </span>
+
+    <button (click)="nextPage()" [disabled]="page === totalPages - 1">Next</button>
+</div>

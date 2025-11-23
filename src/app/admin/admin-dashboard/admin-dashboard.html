@@ -1,0 +1,19 @@
+<!-- <h2 class="title">Admin Dashboard</h2> -->
+<div class="grid">
+    <mat-card class="stat-card highlight">
+        <mat-card-title>Total Posts</mat-card-title>
+        <mat-card-content>
+            <h1>{{ totalPosts }}</h1>
+        </mat-card-content>
+    </mat-card>
+
+    @for (item of statusStats | keyvalue; track item.key) {
+    <mat-card class="stat-card">
+        <mat-card-title>{{ item.key }}</mat-card-title>
+        <mat-card-content>
+            <h2>{{ item.value }}</h2>
+        </mat-card-content>
+    </mat-card>
+    }
+
+</div>

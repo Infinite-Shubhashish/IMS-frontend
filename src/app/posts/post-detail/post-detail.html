@@ -1,0 +1,37 @@
+@if (post) {
+<div class="details-container">
+    <h2 class="title">{{ post.title }}</h2>
+
+    <div class="card">
+        <p><strong>ID: </strong> {{ post.id }}</p>
+        <p><strong>Description: </strong> {{ post.description }}</p>
+        <p><strong>Type: </strong> {{ post.postType }}</p>
+        <p><strong>Status: </strong> {{ post.postStatus }}</p>
+        <p><strong>Admin Comment: </strong> {{ post.adminComment || 'None' }}</p>
+
+        <hr>
+
+        <p><strong>Created By: </strong> {{ post.createdByUsername }}</p>
+        <p><strong>Created: </strong> {{ post.createdDate | date:'short' }}</p>
+        <p><strong>Updated: </strong> {{ post.updatedDate | date:'short' }}</p>
+    </div>
+
+    @if (isAdmin) {
+    <div class="admin-actions">
+
+        @if (post.postStatus === 'PENDING_APPROVAL') {
+        <button (click)="approvePost()" class="btn approve">Approve</button>
+        <button (click)="rejectPost()" class="btn reject">Reject</button>
+        }
+
+        @if (post.postStatus === 'APPROVED') {
+        <button (click)="closePost()" class="btn close">Close</button>
+        }
+
+    </div>
+    }
+</div>
+}
+@else {
+<p>{{ errorMessage }}</p>
+}

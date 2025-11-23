@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Authservice } from '../authservice';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,19 +23,32 @@ export class Login {
 
   private auth = inject(Authservice);
 
+  private router = inject(Router);
+
   submit() {
     if (this.loginForm.invalid) return;
 
     this.auth.login(this.loginForm.getRawValue()).subscribe({
       next: (res) => {
-        this.successMessage = res.message;
-        console.log("SUCCESS:", res);
-        alert("Logged in!");
+
+        const roles = res.data?.roles ?? [];
+
+        localStorage.setItem("username", res.data?.username || '');
+        localStorage.setItem("roles", JSON.stringify(res.data?.roles));
+
+        if (roles.includes('ADMIN')) {
+          this.successMessage = res.message;
+          console.log("SUCCESS:", res);
+          this.router.navigate(['/admin']);
+        }
+        else {
+          this.router.navigate(['/userdashboard']);
+        }
       },
       error: (err) => {
         this.errorMessage = err.error.message;
         console.log("Fail to login:", err);
-        alert("Invalid Credentials");
+
       }
     })
   }
