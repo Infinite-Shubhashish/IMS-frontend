@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ApiResponse } from './model/api-resoponse.model';
-import { RegisterRequest } from './model/registerequest.interface';
+import { ApiResponse } from '../../shared/model/api-resoponse.model';
+import { RegisterRequest } from '../model/register-request.model';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { LoginResponse } from './model/login-response.interface';
+import { LoginResponse } from '../model/login-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +52,10 @@ export class Authservice {
   isUser(): boolean {
     const roles = JSON.parse(localStorage.getItem('roles') || '[]');
     return roles.includes("USER");
+  }
+
+  getUsername(): string {
+    return localStorage.getItem('username') || '';
   }
 
   logout() {

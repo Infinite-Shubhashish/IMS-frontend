@@ -1,5 +1,12 @@
-<h2 class="header">All Posts</h2>
+<div class="header-row">
+    <button mat-mini-fab color="accent" (click)="toggleView()">
+        <mat-icon>{{ viewMode === 'table' ? 'view_module' : 'table_rows' }}</mat-icon>
+    </button>
 
+    <h2 class="header">{{ headerTitle }}</h2>
+</div>
+
+@if (viewMode === 'table'){
 <table class="custom-table">
     <thead>
         <tr>
@@ -23,13 +30,61 @@
         }
     </tbody>
 </table>
+}
+
+@if(viewMode === 'card'){
+<div class="feed-container">
+    @for(post of posts; track post.id){
+    <mat-card class="post-card">
+
+        <span class="more" (click)="openDetails(post.id)">See more</span>
+
+        <mat-card-header>
+            <div mat-card-avatar class="post-avatar"></div>
+
+            <mat-card-title class="title-row">
+                {{ post.title }}
+                <span class="post-type">{{ post.postType }}</span>
+            </mat-card-title>
+
+            <mat-card-subtitle>
+                {{ post.createdByUsername }} •
+                {{ post.createdDate | date:'mediumDate' }}
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <p>{{ post.description }}</p>
+        </mat-card-content>
+
+
+        <mat-card-actions>
+            @if(post.postStatus == "APPROVED"){
+            <button mat-button (click)="openComments(post.id)"><mat-icon>comment</mat-icon></button>
+            }
+            <span class="post-status">{{ post.postStatus }}</span>
+        </mat-card-actions>
+
+
+    </mat-card>
+    }
+</div>
+
+}
+
 
 <div class="pagination-container">
-    <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+
+    <button mat-mini-fab color="primary" (click)="prevPage()" [disabled]="page === 0">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
 
     <span class="page-info">
         Page {{ page + 1 }} of {{ totalPages }}
     </span>
 
-    <button (click)="nextPage()" [disabled]="page === totalPages - 1">Next</button>
+    <button mat-mini-fab color="primary" (click)="nextPage()" [disabled]="page === totalPages - 1">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
+
 </div>

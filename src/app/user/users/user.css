@@ -1,0 +1,36 @@
+.header {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-table th {
+    background: #f4f5f7;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.custom-table td {
+    padding: 12px;
+    border-top: 1px solid #eee;
+}
+
+.custom-table tr:hover {
+    background: #fafafa;
+}
+
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

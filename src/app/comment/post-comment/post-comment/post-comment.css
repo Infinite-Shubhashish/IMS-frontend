@@ -1,0 +1,154 @@
+/* Dialog wrapper */
+.comments-dialog {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+/* Title */
+.comments-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: #3f51b5;
+    /* Material Indigo */
+    margin-bottom: 8px;
+}
+
+/* Comments container */
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 300px;
+    /* set a fixed height for scrollable area */
+    overflow-y: auto;
+    /* enables vertical scrolling */
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fafafa;
+}
+
+/* Scrollbar styling */
+.comments-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+    background-color: rgba(63, 81, 181, 0.5);
+    /* Indigo semi-transparent */
+    border-radius: 4px;
+}
+
+.comments-container::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+/* Optional: smooth scrolling */
+.comments-container {
+    scroll-behavior: smooth;
+}
+
+/* Individual comment card */
+.comment-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Comment header */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    flex-wrap: wrap;
+}
+
+/* Username styling */
+.username {
+    font-weight: 600;
+    color: #3f51b5;
+}
+
+/* Date styling */
+.date {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Comment content */
+.comment-content {
+    font-size: 15px;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+/* Comment actions (delete button) */
+.comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+/* Add comment section */
+.add-comment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+/* Comment input */
+.comment-input {
+    flex: 1;
+}
+
+/* Close section */
+.close-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+/* Close button styling */
+.close-section button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    background-color: #3f51b5;
+    /* default Indigo */
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Icon size */
+.close-section button mat-icon {
+    font-size: 20px;
+}
+
+/* Hover effect */
+.close-section button:hover {
+    background-color: #303f9f;
+    /* darker Indigo on hover */
+    color: #ffeb3b;
+    /* text/icon color change on hover */
+    cursor: pointer;
+}
+
+/* Buttons hover effect */
+button.mat-raised-button:hover {
+    background-color: #384597;
+}

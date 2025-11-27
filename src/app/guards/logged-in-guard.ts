@@ -1,17 +1,17 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { Authservice } from '../auth/authservice';
+import { Authservice } from '../auth/service/auth.service';
 import { inject } from '@angular/core';
 
 export const loggedInGuard: CanActivateFn = (route, state) => {
   const auth = inject(Authservice);
   const router = inject(Router);
 
-  if (auth.isLoggedIn() && auth.isAdmin()) {
-    router.navigate(['admin/admindashboard']);
-    return false;
-  }
-  else if (auth.isLoggedIn() && !auth.isAdmin()) {
-    router.navigate(['/userdashboard']);
+  if (auth.isLoggedIn()) {
+    if (auth.isAdmin()) {
+      router.navigate(['/admin/admindashboard']);
+    } else {
+      router.navigate(['/user/userdashboard']);
+    }
     return false;
   }
 

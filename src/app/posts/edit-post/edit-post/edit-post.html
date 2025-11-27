@@ -1,0 +1,56 @@
+<div class="container">
+
+    <h2>Edit Post</h2>
+
+    <form [formGroup]="editForm" (ngSubmit)="save()">
+
+        <!-- Title -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+
+            @if (editForm.get('title')?.touched && editForm.get('title')?.invalid) {
+            <mat-error>Title is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="4" formControlName="description"></textarea>
+
+            @if (editForm.get('description')?.touched && editForm.get('description')?.invalid) {
+            <mat-error>Description is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Post Type -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Post Type</mat-label>
+            <mat-select formControlName="type">
+
+                <mat-option value="">Select type</mat-option>
+
+                @for (t of postTypes; track t) {
+                <mat-option [value]="t"> {{ postTypeLabels[t] }} </mat-option>
+                }
+            </mat-select>
+
+            @if (editForm.get('type')?.touched && editForm.get('type')?.invalid) {
+            <mat-error>Post type is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="full-width" type="submit" [disabled]="editForm.invalid">
+            Save Changes
+        </button>
+
+    </form>
+
+    <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+    </button>
+
+
+</div>

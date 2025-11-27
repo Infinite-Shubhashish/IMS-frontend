@@ -1,0 +1,38 @@
+<h2 class="header">All Posts</h2>
+
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (user of users; track user.id) {
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.contact}}
+            <td>
+                @for (role of user.roles; track role) {
+                <span class="role-badge">{{ role.roleName }}</span>
+                }
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination-container">
+    <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+
+    <span class="page-info">
+        Page {{ page + 1 }} of {{ totalPages }}
+    </span>
+
+    <button (click)="nextPage()" [disabled]="page === totalPages - 1">Next</button>
+</div>

@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { Authservice } from '../../auth/authservice';
+import { Authservice } from '../../auth/service/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { PostService } from '../../posts/service/service';
+import { PostService } from '../../posts/service/post.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { UserService } from '../../user/service/user.service';
+import { UserStats } from "../../user/user-stats/user-stats/user-stats";
 
 @Component({
   selector: 'app-admin-dashboard',
   imports: [CommonModule,
-    MatCardModule],
+    MatCardModule, RouterLink, UserStats],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
@@ -18,9 +20,11 @@ export class AdminDashboard {
   private router = inject(Router);
 
   totalPosts: number = 0;
+  totalUsers: number = 0;
   statusStats: Record<string, number> = {};
 
   private PostService = inject(PostService);
+  private UserService = inject(UserService);
 
   ngOnInit() {
     this.loadStats();
@@ -37,6 +41,15 @@ export class AdminDashboard {
         console.error('Error fetching total posts:', error);
       }
     });
+
+    this.UserService.getCountTotalUsers().subscribe({
+      next: (data: any) => {
+        this.totalUsers = data.totalUsers;
+      },
+      error: () => {
+        console.error('Error fetching total users:');
+      }
+    });
   }
 
   loadStatusStats() {
@@ -49,6 +62,10 @@ export class AdminDashboard {
       }
     });
 
+  }
+
+  openStatusPage(status: string) {
+    this.router.navigate(['/admin/status', status]);
   }
 
   logout() {

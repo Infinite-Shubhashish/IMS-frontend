@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Authservice } from '../../auth/authservice';
+import { Authservice } from '../../auth/service/auth.service';
 
 export const userGuard: CanActivateFn = (route, state) => {
   const auth = inject(Authservice);
@@ -13,7 +13,7 @@ export const userGuard: CanActivateFn = (route, state) => {
 
   // if logged in as admin - redirect to admin dashboard
   if (auth.isLoggedIn() && auth.isAdmin()) {
-    router.navigate(['/admindashboard']);
+    router.navigate(['admin/admindashboard']);
     return false;
   }
   // if not logged in - redirect to login page

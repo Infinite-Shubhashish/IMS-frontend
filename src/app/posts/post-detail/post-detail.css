@@ -3,38 +3,88 @@
     margin: 0 auto;
 }
 
+/* Title + Header */
 .title {
-    font-size: 24px;
+    margin: 0;
+}
+
+.header {
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+    padding-left: 14px;
+    border-left: 5px solid #4caf50;
     margin-bottom: 20px;
 }
 
-.card {
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+/* Main Post Card */
+.post-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8px);
+    margin-top: 10px;
+    -webkit-backdrop-filter: blur(8px);
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid rgba(200, 200, 200, 0.4);
+    width: 650px;
+    margin: 10 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
-.card p {
-    margin: 8px 0;
+/* Post Header */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+
+.post-header mat-icon {
+    background: #e6e6e6;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.author {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.date {
+
+    font-size: 13px;
+    color: #777;
+}
+
+
+.post-description {
+    font-size: 15px;
+    color: #333;
+}
+
+
+.post-meta .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 6px 0;
+}
+
+.meta-row .icon {
+    color: #1976d2;
+}
+
 
 hr {
-    margin: 20px 0;
+    margin: 14px 0;
     border: none;
     border-top: 1px solid #eee;
 }
 
-.actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-}
 
 .btn {
-    margin-top: 5px;
-    margin-left: 5px;
     padding: 8px 16px;
     border-radius: 6px;
     border: none;
@@ -53,4 +103,27 @@ hr {
 
 .close {
     background: #555;
+}
+
+.submit {
+    background: #53b53f;
+}
+
+/* Edit floating button */
+.btn.edit {
+    background: #43b15d;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.btn.edit:hover {
+    background: #218838;
+}
+
+/* Admin Actions */
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
 }

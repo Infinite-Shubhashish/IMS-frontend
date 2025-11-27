@@ -1,0 +1,54 @@
+<div class="comments-dialog">
+
+
+    <h2 class="comments-title">Comments</h2>
+    <div class="comments-container">
+        @if(!comments || comments.length == 0){
+        <p>No comments to show.</p>
+        }
+        @for(comment of comments; track comment.id){
+        <div class="comment-card">
+
+            <div class="comment-header">
+                <span class="username" style="display: inline-flex; align-items: center; gap: 4px;">
+                    <mat-icon style="font-size: 20px;">person</mat-icon>
+                    {{ comment.creatorUsername }}
+                </span>
+
+                <span class="date">{{ comment.createdDate | date:'short' }}</span>
+            </div>
+
+            <div class="comment-content">
+                {{ comment.content }}
+            </div>
+
+            @if(comment.creatorUsername === loggedInUsername){
+            <div class="comment-actions">
+                <button mat-icon-button color="warn" (click)="deleteComment(comment.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            }
+
+        </div>
+        }
+    </div>
+
+
+    <div class="add-comment">
+        <mat-form-field class="comment-input" appearance="outline">
+            <input matInput placeholder="Add a comment" [(ngModel)]="newComment" (keyup.enter)="addComment()">
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="addComment()">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+
+
+    <div class="close-section">
+        <button mat-raised-button color="primary" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+</div>

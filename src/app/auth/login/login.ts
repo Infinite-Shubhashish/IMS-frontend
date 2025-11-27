@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Authservice } from '../authservice';
+import { Authservice } from '../service/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterOutlet, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -42,7 +42,7 @@ export class Login {
           this.router.navigate(['/admin']);
         }
         else {
-          this.router.navigate(['/userdashboard']);
+          this.router.navigate(['/user']);
         }
       },
       error: (err) => {

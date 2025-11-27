@@ -1,19 +1,62 @@
 @if (post) {
 <div class="details-container">
-    <h2 class="title">{{ post.title }}</h2>
 
-    <div class="card">
-        <p><strong>ID: </strong> {{ post.id }}</p>
-        <p><strong>Description: </strong> {{ post.description }}</p>
-        <p><strong>Type: </strong> {{ post.postType }}</p>
-        <p><strong>Status: </strong> {{ post.postStatus }}</p>
-        <p><strong>Admin Comment: </strong> {{ post.adminComment || 'None' }}</p>
+
+    <h2 class="title">
+        <h2 class="title header">{{ post.title }}</h2>
+        @if(canEdit()){
+        <button class="btn edit" mat-mini-fab color="primary" (click)="goToEdit()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        }
+    </h2>
+
+    <div class="post-card mat-elevation-z2">
+
+        <div class="post-header">
+            <mat-icon>person</mat-icon>
+            <div class="post-header-info">
+                <span class="author">{{ post.createdByUsername }}</span> <br>
+                <span class="date">{{ post.createdDate | date:'longDate' }}</span>
+            </div>
+        </div>
 
         <hr>
 
-        <p><strong>Created By: </strong> {{ post.createdByUsername }}</p>
-        <p><strong>Created: </strong> {{ post.createdDate | date:'short' }}</p>
-        <p><strong>Updated: </strong> {{ post.updatedDate | date:'short' }}</p>
+        <div class="post-description">
+            <p>{{ post.description }}</p>
+        </div>
+
+        <hr>
+
+        <div class="post-meta">
+            <div class="meta-row">
+                <mat-icon class="icon">tag</mat-icon>
+                <strong>Type:</strong> {{ post.postType }}
+            </div>
+
+            <div class="meta-row">
+                <mat-icon class="icon">flag</mat-icon>
+                <strong>Status:</strong> {{ post.postStatus }}
+            </div>
+
+            <div class="meta-row">
+                <mat-icon class="icon">comment</mat-icon>
+                <strong>Admin Comment:</strong> {{ post.adminComment || 'None' }}
+            </div>
+
+            <div class="meta-row">
+                <mat-icon class="icon">update</mat-icon>
+                <strong>Updated:</strong> {{ post.updatedDate | date:'short' }}
+            </div>
+
+            <div class="meta-row">
+                <mat-icon class="icon">fingerprint</mat-icon>
+                <strong>ID:</strong> {{ post.id }}
+            </div>
+
+        </div>
+
     </div>
 
     @if (isAdmin) {
@@ -30,8 +73,19 @@
 
     </div>
     }
+    @if (post.createdByUsername === loggedInUser && post.postStatus === 'DRAFT' || post.postStatus === 'REJECTED') {
+    <button (click)="submitPost()" class="btn submit">
+        Submit for Approval
+    </button>
+    }
+
 </div>
 }
 @else {
 <p>{{ errorMessage }}</p>
 }
+
+
+<button mat-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>Back
+</button>
