@@ -23,6 +23,7 @@ export class PostComment implements OnInit {
   newComment: string = '';
   loggedInUsername: string = '';
 
+
   private commentService = inject(CommentService);
   private auth = inject(Authservice);
   private dialogRef = inject(MatDialogRef<PostComment>);

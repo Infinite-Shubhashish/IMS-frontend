@@ -4,6 +4,8 @@ export interface PostResponse {
     description: string;
     postType: string;
     postStatus: string;
+    //
+    commentCount: number | 0;
     adminComment: string | null;
     createdById: number;
     createdByUsername: string;

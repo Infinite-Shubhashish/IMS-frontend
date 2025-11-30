@@ -5,7 +5,7 @@
     overflow: hidden;
 }
 
-/* Sidebar */
+
 .sidebar {
     width: 230px;
     background: #fff;
@@ -13,10 +13,9 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-/* Ensure menu items are in a column */
 .menu {
     display: flex;
     flex-direction: column;
@@ -44,7 +43,6 @@
     width: 100%;
     padding: 10px 12px;
     background: #36abf4;
-    /* red */
     color: white;
     border: none;
     border-radius: 6px;
@@ -54,6 +52,7 @@
     font-size: 14px;
     cursor: pointer;
     transition: background 0.2s ease;
+    margin-top: auto;
 }
 
 .logout-btn:hover {

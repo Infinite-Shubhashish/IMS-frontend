@@ -6,6 +6,7 @@ import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardSubtitle
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { PostComment } from '../../comment/post-comment/post-comment/post-comment';
+import { PostResponse } from '../model/post-response.model';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class Post implements OnInit {
 
   currentMode: 'admin' | 'user-all' | 'user-mine' = 'admin';
 
-  posts: any[] = [];
+  posts: PostResponse[] = [];
 
   page = 0;
   size = 3;
