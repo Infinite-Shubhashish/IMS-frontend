@@ -30,12 +30,7 @@ export class Login {
 
     this.auth.login(this.loginForm.getRawValue()).subscribe({
       next: (res) => {
-
         const roles = res.data?.roles ?? [];
-
-        localStorage.setItem("username", res.data?.username || '');
-        localStorage.setItem("roles", JSON.stringify(res.data?.roles));
-
         if (roles.includes('ADMIN')) {
           this.successMessage = res.message;
           console.log("SUCCESS:", res);
@@ -46,7 +41,7 @@ export class Login {
         }
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error?.message || err.message || "Login failed";
         console.log("Fail to login:", err);
 
       }

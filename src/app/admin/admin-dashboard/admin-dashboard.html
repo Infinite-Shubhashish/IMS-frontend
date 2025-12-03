@@ -16,6 +16,7 @@
         <mat-card-content>
             <h2>{{ item.value }}</h2>
         </mat-card-content>
+        <mat-icon class="status-icon">{{ statusIcons[item.key.trim()] }}</mat-icon>
     </mat-card>
     }
 

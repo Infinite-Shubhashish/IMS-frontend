@@ -4,6 +4,13 @@ import { ApiResponse } from '../../shared/model/api-resoponse.model';
 import { RegisterRequest } from '../model/register-request.model';
 import { tap } from 'rxjs/operators';
 import { LoginResponse } from '../model/login-response.model';
+import { jwtDecode } from 'jwt-decode';
+
+interface TokenPayload {
+  sub: string;
+  exp: number;
+  iat: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +19,37 @@ export class Authservice {
   private baseUrl = "http://localhost:8080/auth";
   private http = inject(HttpClient);
 
+  private payload: TokenPayload | null = null;
+
+  constructor() {
+    this.loadPayload();
+  }
+
+  private loadPayload() {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    try {
+      this.payload = jwtDecode<TokenPayload>(token);
+    } catch {
+      this.payload = null;
+    }
+  }
 
   login(credentials: { username: string; password: string }) {
-
-    const authString = 'Basic ' + btoa(`${credentials.username}:${credentials.password}`);
-
-    const headers = new HttpHeaders({
-      'Authorization': authString
-    });
-
     return this.http.post<ApiResponse<LoginResponse>>(`${this.baseUrl}/login`, credentials)
       .pipe(
-        tap(() => {
-          localStorage.setItem('authToken', authString);
+        tap((res) => {
+          const token = res.data?.token || '';
+          const roles = res.data?.roles || [];
+
+          localStorage.setItem('token', token);
+          localStorage.setItem('roles', JSON.stringify(roles));
+
+          this.payload = jwtDecode<TokenPayload>(token);
+
+          localStorage.setItem("username", this.payload.sub);
         })
       );
   }
@@ -41,27 +66,29 @@ export class Authservice {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('authToken');
+    if (!this.payload) return false;
+    return this.payload.exp * 1000 > Date.now();
   }
 
   isAdmin(): boolean {
-    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
-    return roles.includes("ADMIN");
+    return JSON.parse(localStorage.getItem("roles") || "[]").includes("ADMIN");
   }
 
   isUser(): boolean {
-    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
-    return roles.includes("USER");
+    return JSON.parse(localStorage.getItem("roles") || "[]").includes("USER");
   }
 
   getUsername(): string {
     return localStorage.getItem('username') || '';
   }
 
+  get token(): string | null {
+    return localStorage.getItem("token");
+  }
+
   logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('username');
-    localStorage.removeItem('roles');
+    localStorage.clear();
+    this.payload = null;
   }
 
 }

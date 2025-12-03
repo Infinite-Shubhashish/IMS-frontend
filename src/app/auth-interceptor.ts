@@ -1,9 +1,16 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Authservice } from './auth/service/auth.service';
+import { Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const token = localStorage.getItem('authToken');
 
+  const authService = inject(Authservice);
+  const router = inject(Router);
+
+  const token = authService.token;
 
   const publicEndpoints = ['/auth/login', '/auth/register'];
 
@@ -13,15 +20,20 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  if (token) {
-    const modifiedReq = req.clone({
-      setHeaders: {
-        Authorization: token
-      }
-    });
+  if (!token || !authService.isLoggedIn()) {
+    router.navigate(['/login'])
 
-    return next(modifiedReq);
+    authService.logout()
+
+    return EMPTY;
   }
 
-  return next(req);
+  const modifiedReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return next(modifiedReq);
+
 };

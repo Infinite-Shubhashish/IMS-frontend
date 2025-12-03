@@ -4,14 +4,18 @@ import { Authservice } from '../../auth/service/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { PostService } from '../../posts/service/post.service';
+import { STATUS_ICONS } from '../../shared/model/status-icons';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [CommonModule, MatCardModule, RouterLink],
+  imports: [CommonModule, MatCardModule, RouterLink, MatIcon],
   templateUrl: './user-dashboard.html',
   styleUrl: './user-dashboard.css',
 })
 export class UserDashboard {
+
+  statusIcons = STATUS_ICONS
   private auth = inject(Authservice);
   private postService = inject(PostService);
   private router = inject(Router);

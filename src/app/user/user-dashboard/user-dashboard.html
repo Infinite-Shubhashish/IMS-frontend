@@ -10,14 +10,15 @@
 
     @for (item of statusStats | keyvalue; track item.key) {
     <mat-card class="stat-card" style="cursor: pointer;" (click)="openStatusPage(item.key)">
-        <mat-card-title>{{ item.key }}</mat-card-title>
+        <mat-card-title class="stat-title">
+            {{ item.key }}</mat-card-title>
         <mat-card-content>
             <h2>{{ item.value }}</h2>
         </mat-card-content>
+        <mat-icon class="status-icon">{{ statusIcons[item.key.trim()] }}</mat-icon>
     </mat-card>
 
     }
-
 
     <hr style="width: 100%; margin: 20px 0;">
     <div class="dashboard-image-wrapper">

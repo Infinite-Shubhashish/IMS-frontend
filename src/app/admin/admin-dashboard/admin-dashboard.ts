@@ -6,16 +6,19 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { UserService } from '../../user/service/user.service';
 import { UserStats } from "../../user/user-stats/user-stats/user-stats";
+import { STATUS_ICONS } from '../../shared/model/status-icons';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin-dashboard',
   imports: [CommonModule,
-    MatCardModule, RouterLink, UserStats],
+    MatCardModule, RouterLink, UserStats, MatIcon],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
 export class AdminDashboard {
 
+  statusIcons = STATUS_ICONS;
   private auth = inject(Authservice);
   private router = inject(Router);
 
